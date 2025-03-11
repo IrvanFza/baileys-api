@@ -68,7 +68,7 @@ model Contact {
   id           String  @db.VarChar(128)
   name         String? @db.VarChar(128)
   notify       String? @db.VarChar(128)
-  verifiedName String? @db.VarChar(128)
+  verifiedName  String? @db.VarChar(128)
   imgUrl       String? @db.VarChar(255)
   status       String? @db.VarChar(128)
 
@@ -118,7 +118,7 @@ model Message {
   ephemeralOffToOn                Boolean?
   ephemeralOutOfSync              Boolean?
   ephemeralStartTimestamp         BigInt?
-  finalLiveLocation               Json?
+  finalLiveLocation                Json?
   futureproofData                 Bytes?
   ignore                          Boolean?
   keepInChat                      Json?
@@ -151,7 +151,7 @@ model Message {
   urlNumber                       Boolean?
   urlText                         Boolean?
   userReceipt                     Json?
-  verifiedBizName                 String?  @db.VarChar(128)
+  verifiedBizName                  String?  @db.VarChar(128)
   eventResponses                  Json?
   pinInChat                       Json?
   reportingTokenInfo              Json?
@@ -164,7 +164,7 @@ model Session {
   pkId      Int    @id @default(autoincrement())
   sessionId String @db.VarChar(128)
   id        String @db.VarChar(255)
-  data      String @db.Text
+  data      String @db.LongText
 
   @@unique([sessionId, id], map: "unique_id_per_session_id_4")
   @@index([sessionId])
