@@ -8,6 +8,7 @@ interface CustomProcessEnv {
 	PORT?: number;
 	NODE_ENV?: "development" | "production" | "test";
 	URL_WEBHOOK?: string;
+	WEBHOOK_API_KEY?: string;
 	ENABLE_WEBHOOK?: boolean;
 	ENABLE_WEBSOCKET?: boolean;
 	BOT_NAME?: string;
@@ -25,6 +26,7 @@ const envSchema = z
 		PORT: z.number(),
 		NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
 		URL_WEBHOOK: z.string().optional(),
+		WEBHOOK_API_KEY: z.string().optional(),
 		ENABLE_WEBHOOK: z.boolean(),
 		ENABLE_WEBSOCKET: z.boolean(),
 		BOT_NAME: z.string().optional().default("Baileys Bot"),
@@ -50,6 +52,7 @@ const processEnv: Partial<CustomProcessEnv> = {
 	PORT: process.env.PORT ? Number(process.env.PORT) : 3000,
 	NODE_ENV: process.env.NODE_ENV as "development" | "production" | "test",
 	URL_WEBHOOK: process.env.URL_WEBHOOK,
+	WEBHOOK_API_KEY: process.env.WEBHOOK_API_KEY,
 	ENABLE_WEBHOOK: process.env.ENABLE_WEBHOOK === "true",
 	ENABLE_WEBSOCKET: process.env.ENABLE_WEBSOCKET === "true",
 	BOT_NAME: process.env.BOT_NAME,

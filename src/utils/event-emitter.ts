@@ -34,12 +34,17 @@ export async function sendWebhook(
 	message?: string,
 ) {
 	try {
+		const headers = {
+			"x-api-key": env.WEBHOOK_API_KEY,
+		};
 		await axios.post(env.URL_WEBHOOK, {
 			sessionId,
 			event,
 			data,
 			status,
 			message,
+		}, {
+			headers
 		});
 	} catch (e) {
 		console.error("Error sending webhook", e);
