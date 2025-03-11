@@ -87,7 +87,7 @@ class WhatsappService {
 				logger.error(e, "An error occurred during session destroy");
 			} finally {
 				WhatsappService.sessions.delete(sessionId);
-				WhatsappService.updateWaConnection(sessionId, WAStatus.Disconected);
+				WhatsappService.updateWaConnection(sessionId, WAStatus.Disconnected);
 			}
 		};
 
@@ -96,7 +96,7 @@ class WhatsappService {
 			const restartRequired = code === DisconnectReason.restartRequired;
 			const doNotReconnect = !WhatsappService.shouldReconnect(sessionId);
 
-			WhatsappService.updateWaConnection(sessionId, WAStatus.Disconected);
+			WhatsappService.updateWaConnection(sessionId, WAStatus.Disconnected);
 
 			if (code === DisconnectReason.loggedOut || doNotReconnect) {
 				if (res) {
@@ -137,7 +137,7 @@ class WhatsappService {
 							sessionId,
 							undefined,
 							"error",
-							`Unable to generate QR code: ${e.message}`,
+							`Unable to generate QR code: ${e instanceof Error ? e.message : "Unknown error"}`,
 						);
 						res.status(500).json({ error: "Unable to generate QR" });
 					}
@@ -159,7 +159,7 @@ class WhatsappService {
 						sessionId,
 						undefined,
 						"error",
-						`Unable to generate QR code: ${e.message}`,
+						`Unable to generate QR code: ${e instanceof Error ? e.message : "Unknown error"}`,
 					);
 				}
 			}

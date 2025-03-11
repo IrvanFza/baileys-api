@@ -56,7 +56,7 @@ export const send: RequestHandler = async (req, res) => {
 			req.params.sessionId,
 			undefined,
 			"error",
-			message + ": " + e.message,
+			message + ": " + (e instanceof Error ? e.message : "Unknown error"),
 		);
 		res.status(500).json({ error: message });
 	}
@@ -89,7 +89,7 @@ export const sendBulk: RequestHandler = async (req, res) => {
 			const message = "An error occured during message send";
 			logger.error(e, message);
 			errors.push({ index, error: message });
-			emitEvent("send.message", sessionId, undefined, "error", message + ": " + e.message);
+			emitEvent("send.message", sessionId, undefined, "error", message + ": " + (e instanceof Error ? e.message : "Unknown error"));
 		}
 	}
 
